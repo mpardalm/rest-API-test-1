@@ -6,24 +6,14 @@
  * -----
  */
 const { response } = require('express');
-const redis = require('redis');
-const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const { getRedisCount } = require('../helpers/utils.helpers');
 
-const getCount = (req, res = response) => {
-    try {
-        const client = redis.createClient(REDIS_PORT);
-        client.get('count', (err, data) => {
-            if (err) throw err;
-            res.status(200).json({
-                data
-            });
-        });
 
-    } catch (error) {
-        res.json({
-            'data': 'No value found'
-        });
-    }
+const getCount = async (req, res = response) => {
+    const count = await getRedisCount();
+    res.json({
+        count
+    });
 
 }
 

@@ -24,6 +24,7 @@ class Server {
 
     routes() {
         this.app.use(this.paths.count, require('../routes/count.routes'));
+        this.app.use(this.paths.track, require('../routes/track.routes'));
     }
 
     middlewares() {

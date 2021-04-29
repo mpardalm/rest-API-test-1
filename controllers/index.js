@@ -6,7 +6,9 @@
  * -----
  */
 const { getCount } = require('./count.controller');
+const { postTrack } = require('./track.controller');
 
 module.exports = {
-    getCount
+    getCount,
+    postTrack
 }
