@@ -6,10 +6,13 @@
  * -----
  */
 const { Router } = require('express');
-const { postTrack } = require('../controllers')
+const { postTrack } = require('../controllers');
+const { isBodyValid } = require('../middlewares');
 
 const router = Router();
 
-router.post('/', postTrack);
+router.post('/', [
+    isBodyValid
+], postTrack);
 
 module.exports = router;
