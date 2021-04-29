@@ -26,7 +26,7 @@ const checkBody = async (req = request) => {
 const getRedisCount = async () => {
     try {
         const value = await client.get('count');
-        return isNaN(value) ? 0 : value;
+        return (!value || isNaN(value)) ? '0' : value;
     } catch (error) {
     }
 }
