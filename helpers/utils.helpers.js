@@ -11,6 +11,7 @@ const { request, response } = require("express");
 
 const asyncRedis = require('async-redis');
 const REDIS_PORT = process.env.REDIS_PORT || 6379;
+const client = asyncRedis.createClient(REDIS_PORT);
 
 const dbPath = './db/database.json';
 
@@ -23,7 +24,6 @@ const checkBody = async (req = request) => {
 }
 
 const getRedisCount = async () => {
-    const client = asyncRedis.createClient(REDIS_PORT);
     try {
         const value = await client.get('count');
         return isNaN(value) ? 0 : value;
@@ -32,7 +32,6 @@ const getRedisCount = async () => {
 }
 
 const updateRedisCount = async (redisCurrentValue, count) => {
-    const client = asyncRedis.createClient(REDIS_PORT);
     try {
         const valueUpdated = parseFloat(redisCurrentValue) + parseFloat(count);
         await client.set('count', valueUpdated);
